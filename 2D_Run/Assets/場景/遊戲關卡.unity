@@ -11610,6 +11610,7 @@ GameObject:
   - component: {fileID: 1238078822}
   - component: {fileID: 1238078826}
   - component: {fileID: 1238078825}
+  - component: {fileID: 1238078827}
   m_Layer: 0
   m_Name: "\u5357\u74DC"
   m_TagString: Untagged
@@ -11737,6 +11738,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 1
+--- !u!114 &1238078827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238078821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bfcd026314d18342a427e8eac322bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 164
+  hp: 100
+  coin: 0
+  hight: 400
+  SJ: {fileID: 0}
+  SS: {fileID: 0}
+  SH: {fileID: 0}
+  dead: 0
 --- !u!1001 &1281748210
 PrefabInstance:
   m_ObjectHideFlags: 0
