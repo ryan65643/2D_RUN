@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public int coin;
     [Header("跳躍高度")]
     public int hight = 400;
+    [Header("角色動畫")]
+    public Animator Ani;
     public AudioClip SJ;
     public AudioClip SS;
     public AudioClip SH;
@@ -27,20 +29,23 @@ public class Player : MonoBehaviour
 
     #endregion
 
+
     #region 方法
     /// <summary>
     /// 角色跳躍
     /// </summary>
     private void Jump()
     {
-        print("1");
+        bool key = Input.GetKey(KeyCode.LeftAlt);
+        Ani.SetBool("跳躍開關", key);
     }
     /// <summary>
     /// 角色滑行
     /// </summary>
     private void Slide()
     {
-        print("12");
+        bool key = Input.GetKey(KeyCode.LeftControl);
+        Ani.SetBool("滑行開關", key);
     }
     /// <summary>
     /// 角色碰撞
@@ -66,11 +71,16 @@ public class Player : MonoBehaviour
     #endregion
     private void Start()
     {
+      
         
     }
     private void Update()
     {
-        print(Random.Range(0f,1f));
+        Jump();
+        Slide();
     }
 
+
+
+ 
 }
