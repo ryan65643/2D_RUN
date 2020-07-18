@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Player : MonoBehaviour
 
     #region 區域註解
     [Header("速度"), Range(0, 1000)]
-    public int speed = 4;
+    public float speed = 5.5f;
     [Header("血量")]
     public float hp = 100;
     [Header("金幣數量")]
@@ -29,6 +30,11 @@ public class Player : MonoBehaviour
     public CapsuleCollider2D cc2D;
     public Rigidbody2D rig;
     public bool isGround;
+    public Text textcoin;
+    public Image imahp;
+    private float hpmax;
+    public AudioSource aud;
+    
     #endregion
 
 
@@ -53,6 +59,7 @@ public class Player : MonoBehaviour
             {
                 rig.AddForce(new Vector2(0, hight));
                 isGround = false;
+                aud.PlayOneShot(SJ);
             }
 
         }
@@ -80,14 +87,17 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Hit()
     {
-
+        hp -= 30;
+        imahp.fillAmount = hp / hpmax;
     }
     /// <summary>
     /// 角色吃金幣
     /// </summary>
-    private void Eatcoin()
+    private void Eatcoin(Collider2D collision)
     {
-
+        coin++;
+        Destroy(collision.gameObject);
+        textcoin.text = "COIN:" + coin;
     }
     /// <summary>
     /// 角色死亡
@@ -99,7 +109,7 @@ public class Player : MonoBehaviour
     #endregion
     private void Start()
     {
-
+        hpmax = hp;
 
     }
     private void Update()
@@ -121,12 +131,25 @@ public class Player : MonoBehaviour
         {
             isGround = true;
         }
-
-        if (collision.gameObject.name == "懸浮地板")
+        if (collision.gameObject.name == "懸浮地板" && transform.position.y +1> collision.gameObject.transform.position.y)
         {
             isGround = true;
         }
 
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag=="coin")
+        {
+            Eatcoin(collision);
+        }
+
+        if (collision.tag == "item")
+        {
+            Hit();
+          
+        }
     }
 
 
