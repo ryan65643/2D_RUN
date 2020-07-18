@@ -34,7 +34,9 @@ public class Player : MonoBehaviour
     public Image imahp;
     private float hpmax;
     public AudioSource aud;
-    
+    public GameObject gam;
+    public Text texttitle;
+    public Text textc;
     #endregion
 
 
@@ -89,6 +91,10 @@ public class Player : MonoBehaviour
     {
         hp -= 30;
         imahp.fillAmount = hp / hpmax;
+        if (hp<=0)
+        {
+            Dead();
+        }
     }
     /// <summary>
     /// 角色吃金幣
@@ -104,9 +110,24 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Dead()
     {
+        if (dead) return;
+        speed = 0;
+        dead = true;
+        Ani.SetTrigger("死亡");
+        gam.SetActive(true);
+        textc.text = "COIN:" + coin;
 
     }
     #endregion
+    private void Pass()
+    {
+
+        gam.SetActive(true);
+        texttitle.text = "恭喜過關";
+        textc.text = "COIN:" + coin;
+        speed = 0;
+        rig.velocity = Vector3.zero;
+    }
     private void Start()
     {
         hpmax = hp;
@@ -114,13 +135,19 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        if (dead) return;
         Slide();
+        if (transform.position.y<=-5)
+        {
+            Dead();
+        }
     }
     /// <summary>
     /// 固定更新 一秒50次 有剛體建議用
     /// </summary>
     private void FixedUpdate()
     {
+        if (dead) return;
         Move();
         Jump();
 
@@ -150,6 +177,12 @@ public class Player : MonoBehaviour
             Hit();
           
         }
+        if (collision.name == "傳送門")
+        {
+            Pass();
+
+        }
+        
     }
 
 

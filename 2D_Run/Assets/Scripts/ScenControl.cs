@@ -18,7 +18,7 @@ public class ScenControl : MonoBehaviour
     /// </summary>
     public void ScenceChang()
     {
-        SceneManager.LoadScene("選單");
+        SceneManager.LoadScene("遊戲關卡");
     }
     /// <summary>
     /// 延遲載入
